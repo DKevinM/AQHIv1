@@ -154,10 +154,14 @@
 
   window.dataReady.then(() => {
   fetchAllStationData().then(allStations => {
-      allStations.forEach(({ stationName, lat, lon, html }) => {
+      const markerGroup = L.layerGroup();
+
+      allStations.forEach(({ stationName, lat, lon, html, aqhi }) => {
+        const fillColor = getColor(String(aqhi));  
+        
         const marker = L.circleMarker([lat, lon], {
           radius: 7,
-          fillColor: "#3388ff",
+          fillColor: fillColor,
           color: "#222",
           weight: 1,
           fillOpacity: 0.85
@@ -165,7 +169,7 @@
         marker.addTo(markerGroup);
       });
       markerGroup.addTo(map);
-      layerControl.addOverlay(markerGroup, "");
+      layerControl.addOverlay(markerGroup, "Stations");
   });
 });
 </script>
