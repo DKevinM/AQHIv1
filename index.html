@@ -158,6 +158,16 @@
   };
   legend.addTo(map);
 
+
+  const logo = L.control({ position: 'bottomright' });
+  logo.onAdd = function () {
+    const div = L.DomUtil.create('div', 'logo-container');
+    div.innerHTML = `<img src="ACA_LOGO_CMYK.png" alt="Logo">`; 
+    return div;
+  };
+  logo.addTo(map);
+
+  
   // Auto-refresh every 60 minutes
   setInterval(() => location.reload(), 60 * 60 * 1000);
 </script>
