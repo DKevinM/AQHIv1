@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Forecast AQHI Map</title>
+  <title>AQHI Map</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
   <style>
@@ -175,8 +175,6 @@
 <script>
 
   window.dataReady.then(() => {
-
-    
   fetchAllStationData().then(allStations => {
       allStations.forEach(({ stationName, lat, lon, html, aqhi }) => {
         const fillColor = getColor(String(aqhi || "NA"));
