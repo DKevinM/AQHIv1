@@ -168,11 +168,6 @@
         marker.addTo(markerGroup);
       });
       markerGroup.addTo(map);
-      if (layerControl) {
-        layerControl.addOverlay(markerGroup, "Stations");
-      } else {
-        console.warn("layerControl is not ready yet.");
-      }
   });
 });
 </script>
