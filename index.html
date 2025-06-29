@@ -82,7 +82,7 @@
 
  // Load all AQHI GeoJSONs
   Promise.all(Object.entries(layersInfo).map(([label, file]) =>
-    fetch(`./output/${file}`)
+    fetch(file)
       .then(resp => resp.json())
       .then(data => {
         const timestamp = data.features[0]?.properties?.timestamp || label;
