@@ -85,13 +85,36 @@
   const markerGroup = L.layerGroup(); 
   overlayLayers["Stations"] = markerGroup;
   const layersInfo = {
-    "Alberta AQHI": "https://raw.githubusercontent.com/DKevinM/AQHI.forecast/main/output/AQHI_Alberta.geojson",
     "Edmonton AQHI": "https://raw.githubusercontent.com/DKevinM/AQHI.forecast/main/output/AQHI_Edm.geojson",
-    "Strathcona County AQHI": "https://raw.githubusercontent.com/DKevinM/AQHI.forecast/main/output/AQHI_Strathcona.geojson",
-    "Parkland County AQHI": "https://raw.githubusercontent.com/DKevinM/AQHI.forecast/main/output/AQHI_Parkland_County.geojson",
     "ACA AQHI": "https://raw.githubusercontent.com/DKevinM/AQHI.forecast/main/output/AQHI_ACA_Boundary_2022.geojson"
   };
 
+
+const purpleAirLayer = L.layerGroup();
+  overlayLayers["PurpleAir Sensors"] = purpleAirLayer;
+  
+  fetch('https://raw.githubusercontent.com/DKevinM/AB_datapull/main/data/ACA_PM25_map.json')
+    .then(res => res.json())
+    .then(data => {
+      data.forEach(sensor => {
+        const marker = L.circleMarker([sensor.latitude, sensor.longitude], {
+          radius: 5,
+          color: "#000000",
+          fillColor: sensor.color,
+          fillOpacity: 0.85,
+          weight: 1
+        }).bindPopup(`
+          <strong>${sensor.name}</strong><br>
+          PM2.5 (Corrected): ${sensor.pm_corr?.toFixed(1) ?? 'N/A'} µg/m³<br>
+          RH: ${sensor.humidity ?? 'N/A'}%<br>
+          Last Seen: ${sensor.last_seen}
+        `);
+        marker.addTo(purpleAirLayer);
+      });
+    });
+
+
+  
  // Load all AQHI GeoJSONs
   Promise.all(Object.entries(layersInfo).map(([label, file]) =>
     fetch(file)
@@ -105,7 +128,7 @@
           }
         });
         overlayLayers[label] = layer;
-        if (label === "Strathcona County AQHI") {
+        if (label === "ACA AQHI") {
           layer.addTo(map);  // Only Strathcona County shows initially
         }
       })
