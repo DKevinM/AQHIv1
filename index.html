@@ -183,7 +183,7 @@ const purpleAirLayer = L.layerGroup();
   legend.addTo(map);
 
 
-  const logo = L.control({ position: 'bottomright' });
+  const logo = L.control({ position: 'topleft' });
   logo.onAdd = function () {
     const div = L.DomUtil.create('div', 'logo-container');
     div.innerHTML = `<img src="ACA_LOGO_CMYK.png" alt="Logo">`; 
