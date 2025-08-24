@@ -40,7 +40,7 @@
 <script src="data.js"></script> 
    
 <script>
-  const map = L.map('map').setView([ 53.483659, -113.556513], 13);
+  const map = L.map('map').setView([ 53.538515, -114.012872], 14);
   let layerControl;
 
   // Base layers
@@ -129,7 +129,7 @@ const purpleAirLayer = L.layerGroup();
           }
         });
         overlayLayers[label] = layer;
-        if (label === "Edmonton AQHI") {
+        if (label === "ACA AQHI") {
           layer.addTo(map);  
         }
       })
