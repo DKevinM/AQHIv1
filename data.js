@@ -149,7 +149,7 @@ const shortformOverride = {
         <div style="font-size:0.9em;">
           <strong>${stationName}</strong><br>
           <small><em>${displayTime}</em></small><br>
-          AQHI: ${aqhiValue}<br>
+          AQHI: ${aqhiValue > 10 ? "10+" : aqhiValue}<br>
           ${lines.join("<br>")}
         </div>
       `
